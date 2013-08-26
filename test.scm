@@ -56,3 +56,14 @@
    ( 524288  (power 2 19))
    (1048576  (power 2 20))
    ))
+
+(test-program 
+ "programs/kmp.scm"
+ '(
+   (#t (search () ()))
+   (#t (search () (a)))
+   (#t (search (a b a b) (x a b c a b a c a b a b)))
+   (#t (search (a b a b c) (x a b c a b a b a b c)))
+   (#f (search (a b a b c) (x a b c a b a b a b d)))
+   (#t (search (a b c a b c a c a b) (a b c a b c a b c a c a b d)))
+   ))
