@@ -1,12 +1,9 @@
-(define (snoc ls x)
-  (append ls (list x)))
-
 (define (search p d)
   (match p p '() '() d '()))
 
-; Search p0 against pre0+d, 
-; with (p,pre) as our current positions, respectively.
-; Invariant: (or (null? d) (not (memv (car d) neg)))
+;; Search p0 against pre0+d, 
+;; with (p,pre) as our current positions, respectively.
+;; Invariant: (or (null? d) (not (memv (car d) neg)))
 (define (match p0 p pre pre0 d neg)
   (if (null? p) 
       #t
@@ -26,3 +23,6 @@
   (if (null? pre0)
       (search p0 (cdr d))
       (match p0 p0 (cdr pre0) (cdr pre0) d neg)))
+
+(define (snoc ls x)
+  (append ls (list x)))
