@@ -1,11 +1,5 @@
 (load "terp.scm")
 
-;programs/1.scm	programs/2.scm	programs/kmp.scm
-
-(define (assert true?)
-  (if (not true?)
-      (error "Assertion failed")))
-
 (define (print obj)
   (write obj)
   (newline))
@@ -23,20 +17,30 @@
 	      '()
 	      (cons exp (reading))))))))
 
+(define terp (snarf "terp.scm"))
+
 (define (test-program filename cases)
   (let ((program (snarf filename)))
     (for-each (lambda (test-case)
                 (let ((expected (car test-case))
                       (function (caadr test-case))
                       (arguments (cdadr test-case)))
-                  (let ((result (run program function arguments)))
-                    (cond ((not (equal? expected result))
-                           (say "Failed in " filename)
-                           (display "For:      ") (print (cons function arguments))
-                           (display "Expected: ") (print expected)
-                           (display "Got:      ") (print result)
-                           (newline))))))
+                  (run-test filename program function arguments expected)
+                  (run-meta-test program function arguments expected)))
               cases)))
+
+(define (run-test context program function arguments expected)
+  (let ((result (run program function arguments)))
+    (cond ((not (equal? expected result))
+           (say "Failed in " context)
+           (display "For:      ") (print (cons function arguments))
+           (display "Expected: ") (print expected)
+           (display "Got:      ") (print result)
+           (newline)))))
+
+(define (run-meta-test program function arguments expected)
+  (run-test "self-interpreter"
+            terp 'run (list program function arguments) expected))
 
 (test-program 
  "programs/factor.scm"
