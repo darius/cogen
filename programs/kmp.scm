@@ -25,4 +25,4 @@
       (match p0 p0 (cdr pre0) (cdr pre0) d neg)))
 
 (define (snoc ls x)
-  (append ls (list x)))
+  (append ls (cons x '())))
