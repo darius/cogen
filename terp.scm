@@ -26,6 +26,19 @@
 	  (lookup e vn vv)
 	  (eval-combo dn dv vn vv (car e) (cdr e)))))
 
+(define (literal? e)
+  (if (pair? e)
+      (eq? (car e) 'quote)
+      (if (boolean? e) #t
+          (if (char? e) #t
+              (if (number? e) #t
+                  (string? e))))))
+
+(define (literal-value e)
+  (if (pair? e)
+      (cadr e)
+      e))
+
 (define (eval-combo dn dv vn vv tag es)
   (if (eq? tag 'if)
       (if (evaluate dn dv vn vv (car es))
@@ -182,9 +195,10 @@
   (if (eq? tag 'string-ci>=?) (string-ci>=? (car vv) (cadr vv))
   (if (eq? tag 'string-ci>?) (string-ci>? (car vv) (cadr vv))
   (if (eq? tag 'string-append) (string-append (car vv) (cadr vv))
+  (if (eq? tag 'error) (error (car vv) (cadr vv))
   (if (eq? tag 'substring) (substring (car vv) (cadr vv)) (caddr vv))
-  (apply-primitive tag vv)
-  )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  (error "Unknown primitive" (cons tag vv))
+  ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
   ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (define (eval-operands dn dv vn vv es)
