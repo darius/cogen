@@ -3,7 +3,7 @@
 ;; (stage input-program function-name signatures)
 ;;   -> generating-extension, a Scheme lambda-expression of type: 
 ;;      arguments -> residual-program
-;; where RESIDUAL-PROGRAM has just the definitions from SIGNATURES.
+;; where RESIDUAL-PROGRAM has just the definitions matching SIGNATURES.
 ;; Each signature is a function name and parameter list from
 ;; PROGRAM, with some parameters possibly omitted. 
 ;; ARGUMENTS includes one value for each parameter omitted 
@@ -13,6 +13,22 @@
 ;; parameters to FUNCTION-NAME and produces a residual program taking
 ;; the remaining parameters, and behaving like INPUT-PROGRAM on all of
 ;; the parameters together.
+;;
+;;     For example, given this input program:
+;;
+;;     (define (whee x y) (square (* x y)))
+;;     (define (square x) (* x x))
+;;
+;;     and function-name WHEE and signatures including (WHEE x), return
+;;     a generating extension like
+;;
+;;     (lambda (y) ...implementation...)
+;;
+;;     such that calling ((eval ...that-lambda...) 5) returns a program 
+;;     equivalent to
+;;
+;;     (define (whee x) (square (* x 5)))
+;;     (define (square x) (* x x))
 ;;
 ;; There must be a signature for FUNCTION-NAME so we know which
 ;; parameters to assign to the generating extension and which to the
