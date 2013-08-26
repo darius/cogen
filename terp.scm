@@ -196,10 +196,10 @@
   (if (eq? tag 'string-ci>?) (string-ci>? (car vv) (cadr vv))
   (if (eq? tag 'string-append) (string-append (car vv) (cadr vv))
   (if (eq? tag 'error) (error (car vv) (cadr vv))
-  (if (eq? tag 'substring) (substring (car vv) (cadr vv)) (caddr vv))
+  (if (eq? tag 'substring) (substring (car vv) (cadr vv) (caddr vv))
   (error "Unknown primitive" (cons tag vv))
   ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-  ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (define (eval-operands dn dv vn vv es)
   (if (null? es)
