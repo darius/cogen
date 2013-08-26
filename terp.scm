@@ -208,11 +208,15 @@
 	    (eval-operands dn dv vn vv (cdr es)))))
 
 (define (lookup x vn vv)
-  (if (eq? x (car vn))
-      (car vv)
-      (lookup x (cdr vn) (cdr vv))))
+  (if (null? vn)
+      (error "Unbound" x)
+      (if (eq? x (car vn))
+          (car vv)
+          (lookup x (cdr vn) (cdr vv)))))
 
 (define (lookup-def name dn dv)		;temporary for monovariant bta
-  (if (eq? name (car dn))
-      (car dv)
-      (lookup-def name (cdr dn) (cdr dv))))
+  (if (null? dn)
+      (error "Unknown function" name)
+      (if (eq? name (car dn))
+          (car dv)
+          (lookup-def name (cdr dn) (cdr dv)))))
