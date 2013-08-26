@@ -26,7 +26,7 @@
                       (function (caadr test-case))
                       (arguments (cdadr test-case)))
                   (run-test filename program function arguments expected)
-                  (run-meta-test program function arguments expected)))
+                  (run-meta-test filename program function arguments expected)))
               cases)))
 
 (define (run-test context program function arguments expected)
@@ -38,8 +38,8 @@
            (display "Got:      ") (print result)
            (newline)))))
 
-(define (run-meta-test program function arguments expected)
-  (run-test "self-interpreter"
+(define (run-meta-test context program function arguments expected)
+  (run-test (string-append context " under self-interpreter")
             terp 'run (list program function arguments) expected))
 
 (test-program 
