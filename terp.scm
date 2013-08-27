@@ -214,7 +214,7 @@
           (car vv)
           (lookup x (cdr vn) (cdr vv)))))
 
-(define (lookup-def name dn dv)		;temporary for monovariant bta
+(define (lookup-def name dn dv)
   (if (null? dn)
       (error "Unknown function" name)
       (if (eq? name (car dn))
