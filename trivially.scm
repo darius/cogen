@@ -19,7 +19,7 @@
 ;;     (define (whee x y) (square (* x y)))
 ;;     (define (square x) (* x x))
 ;;
-;;     and function-name WHEE and signatures including (WHEE x), return
+;;     and function-name WHEE and signatures including (WHEE X), return
 ;;     a generating extension like
 ;;
 ;;     (lambda (y) ...implementation...)
