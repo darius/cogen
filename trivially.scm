@@ -24,8 +24,7 @@
 ;;
 ;;     (lambda (y) ...implementation...)
 ;;
-;;     such that calling ((eval ...that-lambda...) 5) returns a program 
-;;     equivalent to
+;;     such that ((eval ...that-lambda...) 5) returns a program equivalent to
 ;;
 ;;     (define (whee x) (square (* x 5)))
 ;;     (define (square x) (* x x))
