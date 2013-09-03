@@ -1,21 +1,5 @@
 (load "terp.scm")
-
-(define (print obj)
-  (write obj)
-  (newline))
-
-(define (say . things)
-  (for-each display things)
-  (newline))
-
-(define (snarf file)
-  (call-with-input-file file
-    (lambda (port)
-      (let reading ()
-	(let ((exp (read port)))
-	  (if (eof-object? exp)
-	      '()
-	      (cons exp (reading))))))))
+(load "utils.scm")
 
 (define terp (snarf "terp.scm"))
 
@@ -63,8 +47,7 @@
 
 (test-program 
  "programs/kmp.scm"
- '(
-   (#t (search () ()))
+ '((#t (search () ()))
    (#t (search () (a)))
    (#t (search (a b a b) (x a b c a b a c a b a b)))
    (#t (search (a b a b c) (x a b c a b a b a b c)))
