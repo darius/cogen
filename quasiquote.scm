@@ -15,7 +15,9 @@
   (qq-expand x))
 
 (define (qq-expand x)
-  (cond ((or (null? x) (symbol? x))
+  (cond ((vector? x)
+	 (cons 'list->vector (qq-expand (vector->list exp))))
+        ((or (null? x) (symbol? x))
          (list 'quote x))
         ((not (pair? x))
          x)
